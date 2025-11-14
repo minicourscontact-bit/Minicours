@@ -1,92 +1,19 @@
-import express from "express";
-import fs from "fs";
-import path from "path";
-import bodyParser from "body-parser";
-import Stripe from "stripe";
-import nodemailer from "nodemailer";
-import dotenv from "dotenv";
-dotenv.config();
-
-const app = express();
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-const PORT = process.env.PORT || 10000;
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static("public"));
-
-const __dirname = path.resolve();
-const usersFile = path.join(__dirname, "users.json");
-
-// Charger les utilisateurs
-function loadUsers() {
-  if (!fs.existsSync(usersFile)) fs.writeFileSync(usersFile, "{}");
-  return JSON.parse(fs.readFileSync(usersFile));
-}
-
-// Sauvegarder les utilisateurs
-function saveUsers(users) {
-  fs.writeFileSync(usersFile, JSON.stringify(users, null, 2));
-}
-
-// Envoi d’email automatique
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
+{
+  "name": "minicours",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
   },
-});
-
-// Route inscription
-app.post("/register", (req, res) => {
-  const { email, password } = req.body;
-  const users = loadUsers();
-  if (users[email]) return res.status(400).send("Email déjà utilisé");
-  users[email] = { password, premium: false };
-  saveUsers(users);
-
-  transporter.sendMail({
-    from: process.env.EMAIL_USER,
-    to: email,
-    subject: "Bienvenue sur MiniCours 🎓",
-    text: "Merci pour ton inscription ! Voici ta fiche gratuite en pièce jointe.",
-    attachments: [
-      { filename: "fiche1.pdf", path: path.join(__dirname, "public", "fiche1.pdf") },
-    ],
-  });
-
-  res.redirect("/login.html");
-});
-
-// Route connexion
-app.post("/login", (req, res) => {
-  const { email, password } = req.body;
-  const users = loadUsers();
-  if (!users[email] || users[email].password !== password)
-    return res.status(400).send("Identifiants incorrects");
-  res.redirect("/dashboard.html");
-});
-
-// Paiement Stripe
-app.post("/create-checkout-session", async (req, res) => {
-  const session = await stripe.checkout.sessions.create({
-    payment_method_types: ["card"],
-    line_items: [
-      {
-        price_data: {
-          currency: "eur",
-          product_data: { name: "Pack Premium MiniCours" },
-          unit_amount: 990,
-        },
-        quantity: 1,
-      },
-    ],
-    mode: "payment",
-    success_url: `${process.env.DOMAIN}/premium.html`,
-    cancel_url: `${process.env.DOMAIN}/dashboard.html`,
-  });
-  res.redirect(303, session.url);
-});
-
-app.listen(PORT, () => console.log(`✅ Serveur lancé sur le port ${PORT}`));
+  "dependencies": {
+    "express": "^4.18.2",
+    "body-parser": "^1.20.2",
+    "stripe": "^12.0.0",
+    "nodemailer": "^6.9.0",
+    "dotenv": "^16.4.0"
+  },
+  "engines": {
+    "node": "18.x"
+  }
+}
