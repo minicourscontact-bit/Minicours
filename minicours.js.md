@@ -1,3 +1,6 @@
+server.js
+package.json
+users.json
 public/
    index.html
    register.html
