@@ -1,1 +1,24 @@
-{}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MiniCours - Fiches Terminale SVT, Maths, Physique</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>MiniCours 📚</h1>
+    <nav>
+      <a href="/register.html">Inscription</a>
+      <a href="/login.html">Connexion</a>
+      <a href="/about.html">À propos</a>
+    </nav>
+  </header>
+  <main>
+    <h2>Prépare Médecine & STAPS avec MiniCours</h2>
+    <p>Des fiches claires, efficaces et faites pour les Terminales !</p>
+    <a class="btn" href="/register.html">Commencer</a>
+  </main>
+</body>
+</html>
