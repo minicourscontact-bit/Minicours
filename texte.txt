@@ -3,22 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MiniCours - Fiches Terminale SVT, Maths, Physique</title>
+  <title>Inscription - MiniCours</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>MiniCours 📚</h1>
-    <nav>
-      <a href="/register.html">Inscription</a>
-      <a href="/login.html">Connexion</a>
-      <a href="/about.html">À propos</a>
-    </nav>
-  </header>
-  <main>
-    <h2>Prépare Médecine & STAPS avec MiniCours</h2>
-    <p>Des fiches claires, efficaces et faites pour les Terminales !</p>
-    <a class="btn" href="/register.html">Commencer</a>
-  </main>
+  <h2>Inscription</h2>
+  <form action="/register" method="post">
+    <input type="email" name="email" placeholder="Ton e-mail" required>
+    <input type="password" name="password" placeholder="Mot de passe" required>
+    <button type="submit">S’inscrire</button>
+  </form>
 </body>
 </html>
