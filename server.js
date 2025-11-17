@@ -90,3 +90,7 @@ app.post("/create-checkout-session", async (req, res) => {
 });
 
 app.listen(PORT, () => console.log(`✅ Serveur lancé sur le port ${PORT}`));
+// Servir la page d'accueil
+app.get("/", (req, res) => {
+  res.sendFile(path.join(_dirname, "index.html"));
+});
