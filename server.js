@@ -11,6 +11,7 @@ import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const usersFile = path.join(__dirname, "users.json");
 
 const app = express();
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
