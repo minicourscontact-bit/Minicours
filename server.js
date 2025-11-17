@@ -20,9 +20,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-const __dirname = path.resolve();
-const usersFile = path.join(__dirname, "users.json");
-
 // Charger les utilisateurs
 function loadUsers() {
   if (!fs.existsSync(usersFile)) fs.writeFileSync(usersFile, "{}");
