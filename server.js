@@ -92,8 +92,8 @@ app.post("/create-checkout-session", async (req, res) => {
   res.redirect(303, session.url);
 });
 
-app.listen(PORT, () => console.log(`✅ Serveur lancé sur le port ${PORT}`));
 // Servir la page d'accueil
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname,  "public", "index.html"));
 });
+app.listen(PORT, () => console.log(`✅ Serveur lancé sur le port ${PORT}`));
