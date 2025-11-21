@@ -96,4 +96,18 @@ app.post("/create-checkout-session", async (req, res) => {
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname,  "public", "index.html"));
 });
+// Route sécurisée pour télécharger les PDFs premium
+app.get("/download", (req, res) => {
+  const { file, email } = req.query;
+  const users = loadUsers();
+
+  if (!file) return res.status(400).send("Fichier manquant.");
+  if (!email || !users[email]) return res.status(401).send("Utilisateur non identifié.");
+
+  if (!users[email].premium)
+    return res.status(403).send("Accès réservé aux membres Premium");
+
+  const filePath = path.join(__dirname, "private", file);
+  res.download(filePath);
+});
 app.listen(PORT, () => console.log(`✅ Serveur lancé sur le port ${PORT}`));
