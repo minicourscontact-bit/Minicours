@@ -1,0 +1,37 @@
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.pagesizes import A4
+
+doc = SimpleDocTemplate("/mnt/data/fiche1.pdf", pagesize=A4)
+styles = getSampleStyleSheet()
+story = []
+
+content = """
+<h1>Fiche Gratuite – MiniCours</h1>
+
+<h2>📘 SVT – Le Stress (Résumé)</h2>
+<p>Le stress aigu est une réponse normale face à un danger. L’hypothalamus active l’adrénaline
+(entraînant rythme cardiaque ↑, respiration ↑). Si le stress devient chronique, le cortisol augmente,
+ce qui peut réduire l’efficacité du système immunitaire et affecter l’hippocampe (mémoire).</p>
+
+<h2>📐 Maths – Dérivées (Rappel rapide)</h2>
+<p>- (eˣ)' = eˣ<br/>
+- (ln(x))' = 1/x<br/>
+- (axⁿ)' = anxⁿ⁻¹<br/>
+La dérivée décrit la variation instantanée d’une fonction. Elle permet d'étudier les variations
+d’une courbe.</p>
+
+<h2>🧲 Physique – Énergie & Forces</h2>
+<p>L’énergie mécanique d’un système correspond à : E = Ec + Ep.<br/>
+Une force constante produit un travail : W = F × d.<br/>
+En mécanique, la conservation de l’énergie permet de prédire un mouvement (sans frottements).</p>
+
+<h3>➡️ Suite dans le pack Premium : fiches complètes, exercices corrigés et méthodes.</h3>
+"""
+
+story.append(Paragraph(content, styles["Normal"]))
+story.append(Spacer(1, 12))
+
+doc.build(story)
+
+"/mnt/data/fiche1.pdf"
